@@ -1,11 +1,12 @@
-<div class="list-content"
+<div class="list-content" ng-show="menu.itemsFound();">
   <ol>
     <li ng-repeat="item in menu.found">
       {{item}}
       <!-- <div class="col-name"> {{ item }} </div> -->
       <!-- <div class="col-button"> -->
-      <button ng-click="menu.onRemove({index: $index});">Don't want this one!</button>
+        <button ng-click="menu.onRemove({index: $index});">Don't want this one!</button>
       <!-- </div> -->
     </li>
   </ol>
 </div>
+<div class="list-content" ng-hide="menu.itemsFound();">Nothing Found!</div>

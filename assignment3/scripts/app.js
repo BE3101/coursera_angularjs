@@ -30,6 +30,19 @@ function FoundItemsDirective() {
 // be poor coding practice
 function NarrowItDownDirectiveController() {
   var menu = this;
+
+  menu.itemsFound = function () {
+
+    if( menu.found === undefined ) {
+      //Fake a true if we haven't started
+      return true;
+    } else {
+      if( menu.found.length > 0 ) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 //Controller
@@ -37,7 +50,6 @@ NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
   var menu = this;
 
-  menu.searchTerm = "";
   //Get list from the MenuSearchService
   menu.narrowList = function() {
     var promise = MenuSearchService.getMatchedMenuItems( menu.searchTerm );
@@ -72,12 +84,16 @@ function MenuSearchService($http, ApiBasePath) {
       var foundItems = {};
       var numItems = result.data.menu_items.length;
 
-      for( var i=0; i<numItems; i++ ) {
-        if(result.data.menu_items[i].name.toLowerCase().indexOf( searchTerm.toLowerCase() ) >= 0 ) {
-          //If we've seen it before, add one to it's value otherwise add it to the hash
-          foundItems.hasOwnProperty(result.data.menu_items[i].name) ?
-            foundItems[result.data.menu_items[i].name] ++ :
-            foundItems[result.data.menu_items[i].name] = 1;
+      if( searchTerm !== undefined) {
+        if( searchTerm.toLowerCase() != "" ) {
+          for( var i=0; i<numItems; i++ ) {
+            if(result.data.menu_items[i].name.toLowerCase().indexOf( searchTerm.toLowerCase() ) >= 0 ) {
+              //If we've seen it before, add one to it's value otherwise add it to the hash
+              foundItems.hasOwnProperty(result.data.menu_items[i].name) ?
+                foundItems[result.data.menu_items[i].name] ++ :
+                foundItems[result.data.menu_items[i].name] = 1;
+            }
+          }  
         }
       }
 
