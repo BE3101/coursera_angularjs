@@ -1,0 +1,9 @@
+<h3>{{ $ctrl.category.name }}</h3>
+<p>
+  <i>{{ $ctrl.category.special_instructions }}</i>
+</p>
+<div>
+  <span ng-repeat="item in $ctrl.items">
+    {{ item.name }} (${{ item.price_large }}): {{ item.description }} <br /><br />
+  </span>
+</div>
