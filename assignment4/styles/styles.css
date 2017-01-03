@@ -18,7 +18,7 @@ div#left {
   width: 200px;
   padding: 5px;
   text-align: left;
-  background-color: lightgrey;
+  /*background-color: lightgrey;*/
 }
 div#right {
   display: table-cell;
